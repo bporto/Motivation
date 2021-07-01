@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.motivation.R
+import com.example.motivation.infra.MotivationConstants
 import com.example.motivation.infra.SecurityPreferences
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -23,8 +24,12 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }
+
         buttonSave.setOnClickListener(this)
+
+        verifyName()
     }
+
 
     override fun onClick(view: View) {
         val id = view.id
@@ -37,10 +42,20 @@ class SplashActivity : AppCompatActivity(), View.OnClickListener {
         val name = editName.text.toString()
 
         if (name != "") {
-            mSecurityPreferences.storeString("name", name)
+            mSecurityPreferences.storeString(MotivationConstants.KEY.PERSON_NAME, name)
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         } else {
             Toast.makeText(this, "Por favor, informe seu nome", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun verifyName() {
+        val name = mSecurityPreferences.getString(MotivationConstants.KEY.PERSON_NAME)
+        if (name != "") {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
