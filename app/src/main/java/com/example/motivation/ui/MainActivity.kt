@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         mSecurityPreferences = SecurityPreferences(this)
         textMain.text =
-            "Olá, ${mSecurityPreferences.getString(MotivationConstants.KEY.PERSON_NAME)}"
+            resources.getString(R.string.ola) + mSecurityPreferences.getString(MotivationConstants.KEY.PERSON_NAME)
 
         // Lógica inicial de seleção
         imageAll.setColorFilter(resources.getColor(R.color.accent))
